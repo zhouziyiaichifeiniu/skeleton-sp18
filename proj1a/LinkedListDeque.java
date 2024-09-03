@@ -31,6 +31,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         size++;
         Node<T> newNode = new Node<>(item);
         newNode.next = first.next;
+        first.next.prev = newNode;
         newNode.prev = first;
         first.next = newNode;
     }
@@ -40,6 +41,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         size++;
         Node<T> newNode = new Node<>(item);
         newNode.prev = last.prev;
+        last.prev.next = newNode;
         newNode.next = last;
         last.prev = newNode;
     }
@@ -90,8 +92,10 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     public T getRecursiveHelper(int index, Node<T> node) {
-        if (index == 0) return node.item;
-        return getRecursiveHelper(index-1, node.next);
+        if (index == 0) {
+            return node.item;
+        }
+        return getRecursiveHelper(index - 1, node.next);
     }
 
     public T getRecursive(int index) {
