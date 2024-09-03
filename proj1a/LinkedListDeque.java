@@ -71,6 +71,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         size--;
         T item = first.next.item;
         first.next = first.next.next;
+        first.next.prev = first;
         return item;
     }
 
@@ -79,6 +80,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         size--;
         T item = last.prev.item;
         last.prev = last.prev.prev;
+        last.prev.next = last;
         return item;
     }
 
