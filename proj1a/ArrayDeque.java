@@ -1,10 +1,10 @@
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> {
 
-    T[] deque;
-    int size;
-    int nextFront;
+    private T[] deque;
+    private int size;
+    private int nextFront;
 
-    int nextBack;
+    private int nextBack;
 
     public ArrayDeque() {
         deque = (T[]) new Object[8];
@@ -13,7 +13,7 @@ public class ArrayDeque<T> implements Deque<T> {
         nextBack = 0;
     }
 
-    public void resize() {
+    private void resize() {
         T[] newQueue;
 
         // enlarge size
@@ -24,8 +24,7 @@ public class ArrayDeque<T> implements Deque<T> {
         // reduce size
         else if (deque.length >= 16 && size / (double) deque.length <= 0.25) {
             newQueue = (T[]) new Object[deque.length / 2];
-        }
-        else {
+        } else {
             return;
         }
         int frontIndicater = nextFront + 1;
@@ -42,7 +41,7 @@ public class ArrayDeque<T> implements Deque<T> {
         }
     }
 
-    @Override
+
     public void addFirst(T item) {
         deque[nextFront] = item;
         nextFront--;
@@ -50,7 +49,6 @@ public class ArrayDeque<T> implements Deque<T> {
         resize();
     }
 
-    @Override
     public void addLast(T item) {
         deque[nextBack] = item;
         nextBack++;
@@ -58,17 +56,14 @@ public class ArrayDeque<T> implements Deque<T> {
         resize();
     }
 
-    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
-    @Override
     public int size() {
         return size;
     }
 
-    @Override
     public void printDeque() {
         int frontIndicater = nextFront + 1;
         for (int i = 0; i < size; i++) {
@@ -81,7 +76,6 @@ public class ArrayDeque<T> implements Deque<T> {
         System.out.println();
     }
 
-    @Override
     public T removeFirst() {
         int frontIndicater = nextFront + 1;
         frontIndicater = frontIndicater >= deque.length ? 0 : frontIndicater;
@@ -92,7 +86,6 @@ public class ArrayDeque<T> implements Deque<T> {
         return item;
     }
 
-    @Override
     public T removeLast() {
         int backIndicater = nextBack - 1;
         backIndicater = backIndicater < 0 ? deque.length - 1 : backIndicater;
@@ -103,7 +96,6 @@ public class ArrayDeque<T> implements Deque<T> {
         return item;
     }
 
-    @Override
     public T get(int index) {
         if (deque.length - nextFront - 1 > index)
             return deque[nextFront + 1 + index];
